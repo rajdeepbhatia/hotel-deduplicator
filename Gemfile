@@ -13,6 +13,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'nokogiri'
 gem 'haml'
 gem 'wombat'
+gem 'sidekiq'
+gem 'activerecord-import', '~> 0.10.0'
+gem 'domainatrix'
 
 group :development, :test do
   gem 'pry'
