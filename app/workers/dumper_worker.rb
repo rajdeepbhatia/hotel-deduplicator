@@ -10,6 +10,7 @@ class DumperWorker
       cleartrip_scraper.crawl_and_dump
       yatra_scraper = YatraScraper.new(city.id)
       yatra_scraper.crawl_and_dump
+      DuplicateWorker.perform_async(city_id)
     end
   end
 end

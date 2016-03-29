@@ -63,6 +63,8 @@ GEM
       addressable
     erubis (2.7.0)
     execjs (2.6.0)
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -190,11 +192,11 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   domainatrix
+  fuzzily
   haml
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
-  nokogiri
   pry
   rails (= 4.2.6)
   sass-rails (~> 5.0)

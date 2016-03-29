@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322081501) do
+ActiveRecord::Schema.define(version: 20160323111348) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160322081501) do
     t.string   "url",        limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "city_id",    limit: 4
   end
 
 end
