@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323111348) do
+ActiveRecord::Schema.define(version: 20160329075847) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -38,5 +38,16 @@ ActiveRecord::Schema.define(version: 20160323111348) do
     t.datetime "updated_at",             null: false
     t.integer  "city_id",    limit: 4
   end
+
+  create_table "trigrams", force: :cascade do |t|
+    t.string  "trigram",     limit: 3
+    t.integer "score",       limit: 2
+    t.integer "owner_id",    limit: 4
+    t.string  "owner_type",  limit: 255
+    t.string  "fuzzy_field", limit: 255
+  end
+
+  add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match", using: :btree
+  add_index "trigrams", ["owner_id", "owner_type"], name: "index_by_owner", using: :btree
 
 end
