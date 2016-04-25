@@ -11,8 +11,8 @@ class CleartripScraper
   def crawl_and_dump
     while page_path.present? do
       data = scrape_page
-      DataDumper.process_and_save(data, { city: city.id, source: 'cleartrip' })
-      self.page_path = data['next_page']
+      self.page_path = data.delete('next_page')
+      Hotel.process_and_save(data, { city: city.id, source: 'cleartrip' })
     end
   end
 
