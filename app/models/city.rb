@@ -6,11 +6,12 @@ class City < ActiveRecord::Base
                             format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
   validates :yatra_url, presence: true,
                             format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
-
   validate :check_cleartrip_url
   validate :check_yatra_url
 
   has_many :hotels
+  has_many :cleartrip_hotels, -> { cleartrip }, class_name: 'Hotel'
+  has_many :yatra_hotels, -> { yatra }, class_name: 'Hotel'
 
   def check_cleartrip_url
     url = Domainatrix.parse(cleartrip_url)

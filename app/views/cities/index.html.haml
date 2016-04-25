@@ -1,0 +1,21 @@
+.row
+  .col-md-8
+    %table.table.table-striped.table-hovered
+      %thead
+        %tr
+          %th City
+          %th Cleartrip
+          %th Yatra
+          %th Actions
+
+      %tbody
+        - @cities.each do |city|
+          %tr
+            %td= city.name
+            %td= pluralize(city.cleartrip_count, 'hotel')
+            %td= pluralize(city.yatra_count, 'hotel')
+            %td
+              - if city.is_scraping?
+                Scraping...
+              - else
+                = link_to 'View', '#'

@@ -14,6 +14,7 @@ class DuplicateWorker
         similar_hotels_ids = yatra_hotels.find_by_fuzzy_name(hotel.name).pluck(:id)
         DuplicateHotelRecord.create_records(hotel.id, similar_hotels_ids)
       end
+      city.update(is_scraping: false)
     end
   end
 end

@@ -1,4 +1,7 @@
 class Hotel < ActiveRecord::Base
+  scope :cleartrip, -> { where(source: 'cleartrip') }
+  scope :yatra, -> { where(source: 'yatra') }
+
   validates :name, presence: true
   validates :locality, presence: true
   belongs_to :city
