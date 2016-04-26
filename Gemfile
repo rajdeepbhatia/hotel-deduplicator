@@ -16,6 +16,7 @@ gem 'sidekiq'
 gem 'activerecord-import', '~> 0.10.0'
 gem 'domainatrix'
 gem 'fuzzily'
+gem 'sinatra', :require => nil
 
 group :development, :test do
   gem 'pry'

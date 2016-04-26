@@ -15,13 +15,13 @@ class City < ActiveRecord::Base
 
   def check_cleartrip_url
     url = Domainatrix.parse(cleartrip_url)
-    domain = url.domain + url.public_suffix
+    domain = url.domain + '.' + url.public_suffix
     errors.add(:cleartrip_url, 'Please enter a valid cleartrip URL') unless domain == 'cleartrip.com'
   end
 
   def check_yatra_url
     url = Domainatrix.parse(yatra_url)
-    domain = url.domain + url.public_suffix
+    domain = url.domain + '.' + url.public_suffix
     errors.add(:yatra_url, 'Please enter a valid Yatra URL') unless domain == 'yatra.com'
   end
 end

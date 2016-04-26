@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329075847) do
+ActiveRecord::Schema.define(version: 20160425143026) do
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "cleartrip_url", limit: 255
-    t.string   "yatra_url",     limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",            limit: 255
+    t.string   "cleartrip_url",   limit: 255
+    t.string   "yatra_url",       limit: 255
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "cleartrip_count", limit: 4,   default: 0
+    t.integer  "yatra_count",     limit: 4,   default: 0
+    t.boolean  "is_scraping",                 default: true
   end
 
   create_table "duplicate_hotel_records", force: :cascade do |t|

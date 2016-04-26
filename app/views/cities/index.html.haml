@@ -1,5 +1,6 @@
 .row
   .col-md-8
+    %legend Cities
     %table.table.table-striped.table-hovered
       %thead
         %tr
@@ -19,3 +20,17 @@
                 Scraping...
               - else
                 = link_to 'View', '#'
+  .col-md-4
+    %legend Add a new city
+    = form_for @city, html: { role: 'form' } do |f|
+      .form-group
+        %label City name
+        = f.text_field :name, class: 'form-control'
+      .form-group
+        %label Cleartrip URL
+        = f.text_field :cleartrip_url, class: 'form-control'
+      .form-group
+        %label Yatra URL
+        = f.text_field :yatra_url, class: 'form-control'
+      .form-group
+        = f.submit 'Save & Scrape', class: 'btn btn-primary'

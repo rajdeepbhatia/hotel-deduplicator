@@ -8,11 +8,10 @@ class DuplicateWorker
     unless city.blank?
       hotels = city.hotels
       cleartrip_hotels = hotels.where(source: 'cleartrip')
-      yatra_hotels = hotels.where(source: 'yatra')
-
       cleartrip_hotels.each do |hotel|
-        similar_hotels_ids = yatra_hotels.find_by_fuzzy_name(hotel.name).pluck(:id)
-        DuplicateHotelRecord.create_records(hotel.id, similar_hotels_ids)
+        similar_hotels = Hotel.find_by_fuzzy_name(hotel.name)
+        similar_yatra_hotels_ids = similar_hotels.select{ |hotel| hotel.source == 'yatra' }.map(&:id)
+        DuplicateHotelRecord.create_records(hotel.id, similar_yatra_hotels_ids)
       end
       city.update(is_scraping: false)
     end

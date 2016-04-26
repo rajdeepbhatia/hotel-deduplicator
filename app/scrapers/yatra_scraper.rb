@@ -9,10 +9,10 @@ class YatraScraper
   end
 
   def crawl_and_dump
-    while page_path.present? do
+    while (page_path.present? and not page_path.include?('javascript:void')) do
       data = scrape_page
       self.page_path = data.delete('next_page')
-      Hotel.process_and_save(data, { city: city.id, source: 'yatra' })
+      Hotel.process_and_save(data['hotels'], { city_id: city.id, source: 'yatra' })
     end
   end
 
@@ -24,18 +24,18 @@ class YatraScraper
       base_url "http://www.yatra.com"
       path next_url
 
-      hotels "css=.res-info", :iterator do
-        name 'css=aside h3 a'
+      hotels "css=article.yt-my-res", :iterator do
+        name 'css=.result-details-wrapper .result-details-left .hotel-name a'
 
-        locality 'css=aside p' do |address|
-          address.split(',').first
+        locality 'css=.result-details-wrapper .result-details-left .hotel-location li' do |location|
+          location.split(',').first unless location.blank?
         end
 
         url({ xpath: ".//a[1]/@href" })
       end
 
-      next_page({ xpath: '//a[starts-with(@class,"next")]/@href' }) do |link|
-        link.gsub(/http:\/\/www.yatra.com/, '')
+      next_page({ xpath: '//a[contains(@class,"next")]/@href' }) do |link|
+        link.gsub(/http:\/\/www.yatra.com/, '') unless link.blank?
       end
     end
   end
