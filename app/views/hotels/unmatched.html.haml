@@ -1,7 +1,7 @@
 .row
   .col-md-12
     %legend= "Listing #{@city.name} hotels"
-    %table.table.table-striped.table-hovered
+    %table.table.table-striped.table-hover
       %thead
         %tr
           %th Hotel Name
@@ -22,3 +22,7 @@
             %td Similar Hotel Name
             %td
               = link_to 'Mark as Duplicate', '#', class: 'btn btn-xs btn-primary'
+
+    .text-center
+      .apple_pagination
+        = will_paginate @hotels, :container => false
