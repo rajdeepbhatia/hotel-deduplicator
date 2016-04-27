@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   resources :cities do
-    resources :hotels
+    resources :hotels, only: [] do
+      collection do
+        get :unmatched
+        get :dupicated
+      end
+    end
   end
 
   root 'cities#index'

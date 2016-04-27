@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425143026) do
+ActiveRecord::Schema.define(version: 20160427142040) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 20160425143026) do
     t.integer  "cleartrip_hotel_id", limit: 4
     t.integer  "yatra_hotel_id",     limit: 4
     t.string   "reason",             limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "is_duplicated",                  default: false
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -43,7 +44,7 @@ ActiveRecord::Schema.define(version: 20160425143026) do
   end
 
   create_table "trigrams", force: :cascade do |t|
-    t.string  "trigram",     limit: 3
+    t.string  "trigram",     limit: 4
     t.integer "score",       limit: 2
     t.integer "owner_id",    limit: 4
     t.string  "owner_type",  limit: 255

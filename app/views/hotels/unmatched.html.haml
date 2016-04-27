@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    %legend= "Listing #{@city.name} hotels"
+    %table.table.table-striped.table-hovered
+      %thead
+        %tr
+          %th Hotel Name
+          %th Source
+          %th Potential Duplicates
+          %th Reasons
+          %th Actions
+      %tbody
+        - @hotels.each do |hotel|
+          %tr
+            %td
+              = hotel.name + ', ' + hotel.locality
+            %td= hotel.source.capitalize
+            %td
+              - hotel.duplicate_yatra_records.each do |duplicate|
+                %div
+                  = duplicate.yatra_hotel.name + ', ' + duplicate.yatra_hotel.locality
+            %td Similar Hotel Name
+            %td
+              = link_to 'Mark as Duplicate', '#', class: 'btn btn-xs btn-primary'
