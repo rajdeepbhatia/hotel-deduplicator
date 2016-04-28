@@ -12,8 +12,6 @@ Fuzzily::String.class_eval do
   # return list of normalized words
   def normalize
     ActiveSupport::Multibyte::Chars.new(self).
-        mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').downcase.to_s.
-        gsub(/[^a-z]/,' ').
-        gsub(/\s+/,'')
+        mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').downcase.to_s
   end
 end

@@ -19,11 +19,11 @@
               .row
                 .col-md-7
                   = duplicate.yatra_hotel.name + ', ' + duplicate.yatra_hotel.locality
-                .col-md-5
+                .col-md-5.mark-duplicate-link
                   - if duplicate.is_duplicated?
                     Marked
                   - else
-                    = link_to 'Mark Duplicate', '#'
+                    = link_to 'Mark Duplicate', '#', data: { id: duplicate.id }, class: 'mark-dup'
           -#%td Similar Hotel Name
           %td
             = text_field_tag 'search_hotel', '', placeholder: 'search manually and mark', class: 'form-control'

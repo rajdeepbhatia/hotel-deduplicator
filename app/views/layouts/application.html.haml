@@ -9,3 +9,5 @@
     = render 'layouts/shared/header'
     .container.margin-top-10
       = yield
+
+    = javascript_include_tag params[:controller]
