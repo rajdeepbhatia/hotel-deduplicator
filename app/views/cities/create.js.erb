@@ -1,0 +1,5 @@
+$('.city-form').html("<%= j render 'cities/shared/form' %>");
+
+<% unless @city.new_record? %>
+  location.reload();
+<% end %>

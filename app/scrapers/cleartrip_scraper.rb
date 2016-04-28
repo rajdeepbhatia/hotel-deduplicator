@@ -10,7 +10,7 @@ class CleartripScraper
 
   def crawl_and_dump
     while page_path.present? do
-      sleep(0.3) # added to avoid getting my ip blacklisted
+      sleep(1) # added to avoid getting my ip blacklisted
       data = scrape_page
       self.page_path = data.delete('next_page')
       Hotel.process_and_save(data['hotels'], { city_id: city.id, source: 'cleartrip' })

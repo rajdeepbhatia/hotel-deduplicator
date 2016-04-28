@@ -1,28 +1,34 @@
 .row
-  .col-md-12
-    %legend= "Listing #{@city.name} hotels"
-    %table.table.table-striped.table-hover
-      %thead
+  %legend= "Listing #{@city.name} hotels"
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th Hotel Name
+        %th Source
+        %th Potential Duplicates
+        -#%th Reasons
+        %th Actions
+    %tbody
+      - @hotels.each do |hotel|
         %tr
-          %th Hotel Name
-          %th Source
-          %th Potential Duplicates
-          %th Reasons
-          %th Actions
-      %tbody
-        - @hotels.each do |hotel|
-          %tr
-            %td
-              = hotel.name + ', ' + hotel.locality
-            %td= hotel.source.capitalize
-            %td
-              - hotel.duplicate_yatra_records.each do |duplicate|
-                %div
+          %td
+            = hotel.name + ', ' + hotel.locality
+          %td= hotel.source.capitalize
+          %td
+            - hotel.duplicate_yatra_records.each do |duplicate|
+              .row
+                .col-md-7
                   = duplicate.yatra_hotel.name + ', ' + duplicate.yatra_hotel.locality
-            %td Similar Hotel Name
-            %td
-              = link_to 'Mark as Duplicate', '#', class: 'btn btn-xs btn-primary'
+                .col-md-5
+                  - if duplicate.is_duplicated?
+                    Marked
+                  - else
+                    = link_to 'Mark Duplicate', '#'
+          -#%td Similar Hotel Name
+          %td
+            = text_field_tag 'search_hotel', '', placeholder: 'search manually and mark', class: 'form-control'
 
-    .text-center
-      .apple_pagination
-        = will_paginate @hotels, :container => false
+
+  .text-center
+    .apple_pagination
+      = will_paginate @hotels, :container => false

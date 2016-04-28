@@ -1,0 +1,15 @@
+= form_for @city, remote: true, html: { role: 'form' } do |f|
+  .form-group
+    %label City name
+    = f.text_field :name, class: 'form-control'
+    %p.help-block.red= f.object.errors[:name].first
+  .form-group
+    %label Cleartrip URL
+    = f.text_field :cleartrip_url, class: 'form-control'
+    %p.help-block.red= f.object.errors[:name].first
+  .form-group
+    %label Yatra URL
+    = f.text_field :yatra_url, class: 'form-control'
+    %p.help-block.red= f.object.errors[:name].first
+  .form-group
+    = f.submit 'Save & Scrape', class: 'btn btn-primary'
