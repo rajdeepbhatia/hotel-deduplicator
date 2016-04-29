@@ -1,34 +1,31 @@
 .row
-  %legend= "Listing #{@city.name} hotels"
-  %table.table.table-striped.table-hover
-    %thead
-      %tr
-        %th Hotel Name
-        %th Source
-        %th Potential Duplicates
-        -#%th Reasons
-        %th Actions
-    %tbody
-      - @hotels.each do |hotel|
+  .col-md-12
+    %legend= "Listing #{@city.name} hotels"
+    %table.table.table-striped.table-hover
+      %thead
         %tr
-          %td
-            = hotel.name + ', ' + hotel.locality
-          %td= hotel.source.capitalize
-          %td
-            - hotel.duplicate_yatra_records.each do |duplicate|
-              .row
-                .col-md-7
-                  = duplicate.yatra_hotel.name + ', ' + duplicate.yatra_hotel.locality
-                .col-md-5.mark-duplicate-link
-                  - if duplicate.is_duplicated?
-                    Marked
-                  - else
-                    = link_to 'Mark Duplicate', '#', data: { id: duplicate.id }, class: 'mark-dup'
-          -#%td Similar Hotel Name
-          %td
-            = text_field_tag 'search_hotel', '', placeholder: 'search manually and mark', class: 'form-control'
+          %th Hotel Name
+          %th Source
+          %th Potential Duplicates
+          -#%th Reasons
+          %th Actions
+      %tbody
+        - @hotels.each do |hotel|
+          %tr
+            %td
+              = hotel.name + ', ' + hotel.locality
+            %td= hotel.source.capitalize
+            %td{ id: "dup_hotel_#{hotel.id}" }
+              - hotel.duplicate_yatra_records.each do |duplicate|
+                = render 'hotels/shared/duplicate_records', duplicate: duplicate
+            -#%td Similar Hotel Name
+            %td
+              = text_field_tag 'search_hotel', '', placeholder: 'mark manually',
+                                                   class: 'form-control search_hotel',
+                                                   id: "source_hotel_#{hotel.id}",
+                                                   data: { autocomplete_source: search_city_hotels_path(city_id: @city.id, source: 'yatra', hotel_id: hotel.id), hotel_id: hotel.id }
 
-
-  .text-center
     .apple_pagination
-      = will_paginate @hotels, :container => false
+      = will_paginate @hotels, container: false
+
+= hidden_field_tag :hotel_ids, @hotels.map(&:id)

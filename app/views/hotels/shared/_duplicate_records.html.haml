@@ -1,0 +1,8 @@
+.row
+  .col-md-7
+    = duplicate.yatra_hotel.name + ', ' + duplicate.yatra_hotel.locality
+  .col-md-5.mark-duplicate-link
+    - if duplicate.is_duplicated?
+      Duplicate
+    - else
+      = link_to 'Mark Duplicate', '#', data: { id: duplicate.id }, class: 'mark-dup'

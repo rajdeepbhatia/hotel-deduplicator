@@ -1,0 +1,3 @@
+<% if @new_flag %>
+    $("#dup_hotel_<%= params[:source_hotel_id] %>").append("<%= j render 'hotels/shared/duplicate_records', duplicate: @record %>");
+<% end %>

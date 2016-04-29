@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       collection do
         get :unmatched
         get :dupicated
+        get :search
       end
     end
   end

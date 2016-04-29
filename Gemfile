@@ -18,6 +18,8 @@ gem 'domainatrix'
 gem 'fuzzily'
 gem 'sinatra', :require => nil
 gem 'will_paginate', '~> 3.1.0'
+gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'pry'
