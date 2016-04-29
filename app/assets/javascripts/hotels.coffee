@@ -10,6 +10,19 @@ markDuplicate = ->
         if res.duplicate_status
           link_object.parent().html('Duplicate')
 
+unMarkDuplicate = ->
+  $('body').on 'click', '.unmark-dup', ->
+    link_object = $(this)
+    record_id = link_object.attr('data-id')
+    url = "/duplicate_hotel_records/"+ record_id + "/change_duplicate_status"
+    $.ajax
+      url: url
+      type: 'PUT'
+      success: (res)->
+        unless res.duplicate_status
+          link_object.parent().parent().remove()
+
+
 searchHotels = ->
   hotels = $('#hotel_ids').val()
   if hotels
@@ -37,4 +50,5 @@ searchHotels = ->
 $(document).ready ->
   markDuplicate()
   searchHotels()
+  unMarkDuplicate()
 

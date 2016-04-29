@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   end
   resources :duplicate_hotel_records, only: [:create] do
     put :change_duplicate_status, on: :member
+    get :de_duplicated_records, on: :collection
   end
 end

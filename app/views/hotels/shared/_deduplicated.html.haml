@@ -1,0 +1,21 @@
+%legend= "Listing #{@city.name} hotels"
+= link_to 'Unmatched', unmatched_city_hotels_path(@city.id), remote: true, class: 'duplicate-links btn btn-primary btn-xs'
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Hotel Name
+      %th Source
+      %th Hotel Name
+      %th Source
+      %th Actions
+  %tbody
+    - @hotels.each do |record|
+      - record = record.attributes
+      %tr
+        %td= "#{record['cleartrip_name']}, #{record['cleartrip_locality']}"
+        %td Cleartrip
+        %td= "#{record['yatra_name']}, #{record['yatra_locality']}"
+        %td Yatra
+        %td= link_to 'Unlink', '#', data: { id: record['id'] }, class: 'unmark-dup btn btn-sm btn-primary'
+.apple_pagination
+  = will_paginate @hotels, container: false

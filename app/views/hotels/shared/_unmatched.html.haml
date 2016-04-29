@@ -1,0 +1,28 @@
+%legend= "Listing #{@city.name} hotels"
+= link_to 'De-duplicated', de_duplicated_records_duplicate_hotel_records_path(city_id: @city.id), remote: true, class: 'duplicate-links btn btn-primary btn-xs'
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Hotel Name
+      %th Source
+      %th Potential Duplicates
+      -#%th Reasons
+      %th Actions
+  %tbody
+    - @hotels.each do |hotel|
+      %tr
+        %td
+          = hotel.name + ', ' + hotel.locality
+        %td= hotel.source.capitalize
+        %td{ id: "dup_hotel_#{hotel.id}" }
+          - hotel.duplicate_yatra_records.each do |duplicate|
+            = render 'hotels/shared/duplicate_records', duplicate: duplicate
+        -#%td Similar Hotel Name
+        %td
+          = text_field_tag 'search_hotel', '', placeholder: 'mark manually',
+                                               class: 'form-control search_hotel',
+                                               id: "source_hotel_#{hotel.id}",
+                                               data: { autocomplete_source: search_city_hotels_path(city_id: @city.id, source: 'yatra', hotel_id: hotel.id), hotel_id: hotel.id }
+
+.apple_pagination
+  = will_paginate @hotels, container: false
