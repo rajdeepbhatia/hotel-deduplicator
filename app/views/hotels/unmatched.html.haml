@@ -1,5 +1,5 @@
 .row
   .col-md-12.hotel-content
-    = render 'hotels/shared/unmatched'
+    = render 'hotels/shared/unmatched', source: params[:source]
 
 = hidden_field_tag :hotel_ids, @hotels.map(&:id)

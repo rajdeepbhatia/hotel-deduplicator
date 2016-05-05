@@ -2,7 +2,11 @@ class HotelsController < ApplicationController
   before_action :get_city, only: [:unmatched]
 
   def unmatched
-    @hotels = Hotel.list_cleartrip_with_duplicate_records(@city.id).paginate(page: params[:page], per_page: 5)
+    @hotels = unless params[:source] == 'yatra'
+                Hotel.list_cleartrip_with_duplicate_records(@city.id).paginate(page: params[:page], per_page: 5)
+              else
+                Hotel.list_yatra_with_duplicate_records(@city.id).paginate(page: params[:page], per_page: 5)
+              end
   end
 
   def search

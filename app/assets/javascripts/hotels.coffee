@@ -33,9 +33,9 @@ searchHotels = ->
         select: (event, ui)->
           source = ui.item.source
           if source == 'yatra'
-            data = { 'duplicate_hotel_record': { 'cleartrip_hotel_id': ui.item.duplicate_hotel_id, 'yatra_hotel_id': ui.item.id }, 'source_hotel_id': ui.item.duplicate_hotel_id }
+            data = { 'duplicate_hotel_record': { 'cleartrip_hotel_id': ui.item.duplicate_hotel_id, 'yatra_hotel_id': ui.item.id }, 'source_hotel_id': ui.item.duplicate_hotel_id, 'source': 'yatra' }
           else
-            data = { 'duplicate_hotel_record': { 'cleartrip_hotel_id': ui.item.id, 'yatra_hotel_id': ui.item.duplicate_hotel_id }, 'source_hotel_id': ui.item.duplicate_hotel_id }
+            data = { 'duplicate_hotel_record': { 'cleartrip_hotel_id': ui.item.id, 'yatra_hotel_id': ui.item.duplicate_hotel_id }, 'source_hotel_id': ui.item.duplicate_hotel_id, 'source': 'cleartrip' }
 
           $.ajax
             url: '/duplicate_hotel_records'
@@ -43,7 +43,7 @@ searchHotels = ->
             data: data
             success: (res)->
 
-        minLength: 3
+        minLength: 2
         delay: 500
         source: this_object.data('autocomplete-source')
 

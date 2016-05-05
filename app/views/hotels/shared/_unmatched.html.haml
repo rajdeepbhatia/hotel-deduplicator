@@ -4,25 +4,19 @@
   %thead
     %tr
       %th Hotel Name
-      %th Source
+      %th
+        Source
+        = link_to unmatched_city_hotels_path(source: get_source(params[:source])) do
+          %span.glyphicon.glyphicon-retweet
       %th Potential Duplicates
       -#%th Reasons
       %th Actions
   %tbody
-    - @hotels.each do |hotel|
-      %tr
-        %td
-          = hotel.name + ', ' + hotel.locality
-        %td= hotel.source.capitalize
-        %td{ id: "dup_hotel_#{hotel.id}" }
-          - hotel.duplicate_yatra_records.each do |duplicate|
-            = render 'hotels/shared/duplicate_records', duplicate: duplicate
-        -#%td Similar Hotel Name
-        %td
-          = text_field_tag 'search_hotel', '', placeholder: 'mark manually',
-                                               class: 'form-control search_hotel',
-                                               id: "source_hotel_#{hotel.id}",
-                                               data: { autocomplete_source: search_city_hotels_path(city_id: @city.id, source: 'yatra', hotel_id: hotel.id), hotel_id: hotel.id }
+    - unless params[:source] == 'yatra'
+      = render 'hotels/shared/list_cleartrip_hotels'
+    - else
+      = render 'hotels/shared/list_yatra_hotels'
+
 
 .apple_pagination
   = will_paginate @hotels, container: false

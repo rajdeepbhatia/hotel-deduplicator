@@ -1,6 +1,6 @@
 .row
   .col-md-7
-    = duplicate.yatra_hotel.name + ', ' + duplicate.yatra_hotel.locality
+    = duplicate.send("#{duplicate_source}_hotel").name + ', ' + duplicate.send("#{duplicate_source}_hotel").locality
   .col-md-5.mark-duplicate-link
     - if duplicate.is_duplicated?
       Duplicate
