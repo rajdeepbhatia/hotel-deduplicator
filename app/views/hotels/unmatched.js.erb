@@ -1,1 +1,45 @@
 $('.hotel-content').html("<%= j render 'hotels/shared/unmatched' %>")
+var hotel_ids, hotels;
+hotels = $('#hotel_ids').val();
+if (hotels) {
+    hotel_ids = hotels.split(' ');
+    $.each(hotel_ids, function(i, val) {
+        var this_object;
+        this_object = $('#source_hotel_' + val);
+        this_object.autocomplete;
+        return {
+            select: function(event, ui) {
+                var data, source;
+                source = ui.item.source;
+                if (source === 'yatra') {
+                    data = {
+                        'duplicate_hotel_record': {
+                            'cleartrip_hotel_id': ui.item.duplicate_hotel_id,
+                            'yatra_hotel_id': ui.item.id
+                        },
+                        'source_hotel_id': ui.item.duplicate_hotel_id,
+                        'source': 'yatra'
+                    };
+                } else {
+                    data = {
+                        'duplicate_hotel_record': {
+                            'cleartrip_hotel_id': ui.item.id,
+                            'yatra_hotel_id': ui.item.duplicate_hotel_id
+                        },
+                        'source_hotel_id': ui.item.duplicate_hotel_id,
+                        'source': 'cleartrip'
+                    };
+                }
+                return $.ajax({
+                    url: '/duplicate_hotel_records',
+                    type: 'POST',
+                    data: data,
+                    success: function(res) {}
+                });
+            },
+            minLength: 2,
+            delay: 500,
+            source: this_object.data('autocomplete-source')
+        };
+    });
+}

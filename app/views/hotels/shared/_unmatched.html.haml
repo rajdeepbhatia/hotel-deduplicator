@@ -20,3 +20,4 @@
 
 .apple_pagination
   = will_paginate @hotels, container: false
+= hidden_field_tag :hotel_ids, @hotels.map(&:id)
