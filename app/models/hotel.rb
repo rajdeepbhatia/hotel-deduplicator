@@ -7,8 +7,8 @@ class Hotel < ActiveRecord::Base
   validates :locality, presence: true
   validates :url, presence: true, format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
   belongs_to :city
-  has_many :duplicate_yatra_records, foreign_key: 'cleartrip_hotel_id', class_name: 'DuplicateHotelRecord'
-  has_many :duplicate_cleartrip_records, foreign_key: 'yatra_hotel_id', class_name: 'DuplicateHotelRecord'
+  has_many :duplicate_yatra_records, foreign_key: 'cleartrip_hotel_id', class_name: 'DuplicateHotelRecord', dependent: :destroy
+  has_many :duplicate_cleartrip_records, foreign_key: 'yatra_hotel_id', class_name: 'DuplicateHotelRecord', dependent: :destroy
 
   fuzzily_searchable :name, :locality
 

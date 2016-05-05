@@ -1,15 +1,13 @@
 class City < ActiveRecord::Base
   URL_VALIDITY_REGEX = /\A(http|https):\/\/|[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?\z/
 
-  validates :name, presence: true
-  validates :cleartrip_url, presence: true,
-                            format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
-  validates :yatra_url, presence: true,
-                            format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :cleartrip_url, presence: true, format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
+  validates :yatra_url, presence: true, format: { with: URL_VALIDITY_REGEX, message: "Please enter a valid URL" }
   validate :check_cleartrip_url
   validate :check_yatra_url
 
-  has_many :hotels
+  has_many :hotels, dependent: :destroy
   has_many :cleartrip_hotels, -> { cleartrip }, class_name: 'Hotel'
   has_many :yatra_hotels, -> { yatra }, class_name: 'Hotel'
 

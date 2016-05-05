@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429150754) do
+ActiveRecord::Schema.define(version: 20160505201928) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20160429150754) do
     t.integer  "yatra_count",     limit: 4,   default: 0
     t.boolean  "is_scraping",                 default: true
   end
+
+  add_index "cities", ["name"], name: "index_cities_on_name", unique: true, using: :btree
 
   create_table "duplicate_hotel_records", force: :cascade do |t|
     t.integer  "cleartrip_hotel_id", limit: 4

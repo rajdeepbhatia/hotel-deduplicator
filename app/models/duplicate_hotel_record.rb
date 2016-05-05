@@ -1,5 +1,5 @@
 class DuplicateHotelRecord < ActiveRecord::Base
-
+  validates :cleartrip_hotel_id, uniqueness: { scope: :yatra_hotel_id }
   belongs_to :cleartrip_hotel, foreign_key: 'cleartrip_hotel_id', class_name: 'Hotel'
   belongs_to :yatra_hotel, foreign_key: 'yatra_hotel_id', class_name: 'Hotel'
 
