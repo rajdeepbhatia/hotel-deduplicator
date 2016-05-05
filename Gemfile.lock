@@ -113,6 +113,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.4.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -211,6 +212,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0, >= 5.0.5)
   mysql2
   pry
+  puma
   rails (= 4.2.6)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

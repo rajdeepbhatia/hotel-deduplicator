@@ -25,3 +25,7 @@ group :development, :test do
   gem 'pry'
   gem 'byebug'
 end
+
+group :development do
+  gem 'puma'
+end
