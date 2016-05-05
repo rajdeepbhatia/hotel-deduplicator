@@ -1,4 +1,6 @@
-$('.hotel-content').html("<%= j render 'hotels/shared/unmatched' %>")
+$('.hotel-content').html("<%= j render 'hotels/shared/unmatched' %>");
+
+// To make autocomplete work, temporary solution
 var hotel_ids, hotels;
 hotels = $('#hotel_ids').val();
 if (hotels) {
@@ -6,10 +8,12 @@ if (hotels) {
     $.each(hotel_ids, function(i, val) {
         var this_object;
         this_object = $('#source_hotel_' + val);
-        this_object.autocomplete;
-        return {
+        this_object.autocomplete({
+            minLength: 2,
+            delay: 500,
+            source: this_object.data('autocomplete-source'),
             select: function(event, ui) {
-                var data, source;
+                var source, data;
                 source = ui.item.source;
                 if (source === 'yatra') {
                     data = {
@@ -19,7 +23,7 @@ if (hotels) {
                         },
                         'source_hotel_id': ui.item.duplicate_hotel_id,
                         'source': 'yatra'
-                    };
+                    }
                 } else {
                     data = {
                         'duplicate_hotel_record': {
@@ -28,18 +32,15 @@ if (hotels) {
                         },
                         'source_hotel_id': ui.item.duplicate_hotel_id,
                         'source': 'cleartrip'
-                    };
+                    }
                 }
-                return $.ajax({
+                $.ajax({
                     url: '/duplicate_hotel_records',
                     type: 'POST',
-                    data: data,
-                    success: function(res) {}
+                    data: data
                 });
-            },
-            minLength: 2,
-            delay: 500,
-            source: this_object.data('autocomplete-source')
-        };
+            }
+        });
     });
 }
+
